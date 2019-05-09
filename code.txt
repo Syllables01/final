@@ -1,0 +1,21 @@
+一. 边缘检测
+img=imread('test2.png');
+%img=rgb2gray(img);
+img=img(:,:,1);
+BW=edge(img,'Canny');
+二. 直线检测
+img=imread('test2.png');
+%img=rgb2gray(img);
+img=img(:,:,1);
+BW=edge(img,'Canny');
+figure (2)
+imshow(img);
+hold on
+[H,T,R] = hough(BW);
+P  = houghpeaks(H,40);
+lines=houghlines(BW,T,R,P);
+%imshow(img), hold on;
+for k = 1:length(lines)
+    xy=[lines(k).point1;lines(k).point2];
+    plot(xy(:,1),xy(:,2),'LineWidth',4);
+end
